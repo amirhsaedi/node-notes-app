@@ -26,6 +26,12 @@ const removeNotes = title => {
     }
 };
 
+const listNotes = () => {
+    const notes = loadNotes();
+    const list = notes.map(note => note.title);
+    console.log(`Your notes: ${chalk.green(list.join(' - '))}`);
+};
+
 const loadNotes = () => {
     try {
         const dataBuffer = fs.readFileSync('notes.json');
@@ -41,4 +47,4 @@ const saveNotes = notes => {
     fs.writeFileSync('notes.json', dataJSON);
 };
 
-module.exports = { addNotes, removeNotes };
+module.exports = { addNotes, removeNotes, listNotes };

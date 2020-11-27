@@ -1,5 +1,5 @@
 const yargs = require('yargs');
-const { addNotes, removeNotes } = require('./notes');
+const { addNotes, removeNotes, listNotes } = require('./notes');
 
 // CREATE ADD COMMAND
 yargs.command({
@@ -43,7 +43,7 @@ yargs.command({
     command: 'list',
     describe: 'List the notes',
     handler() {
-        console.log('List notes.');
+        listNotes();
     }
 });
 
