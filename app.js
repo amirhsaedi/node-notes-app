@@ -1,8 +1,8 @@
-const yargs = require('yargs');
-const { addNotes, removeNotes, listNotes } = require('./notes');
+const { command, parse } = require('yargs');
+const { addNote, removeNote, listNotes, readNote } = require('./notes');
 
 // CREATE ADD COMMAND
-yargs.command({
+command({
     command: 'add',
     describe: 'Add a new note',
     builder: {
@@ -18,12 +18,12 @@ yargs.command({
         }
     },
     handler(argv) {
-        addNotes(argv.title, argv.body);
+        addNote(argv.title, argv.body);
     }
 });
 
 // CREATE REMOVE COMMAND
-yargs.command({
+command({
     command: 'remove',
     describe: 'Remove a note',
     builder: {
@@ -34,12 +34,12 @@ yargs.command({
         }
     },  
     handler(argv) {
-        removeNotes(argv.title);
+        removeNote(argv.title);
     }
 });
 
 // CREATE LIST COMMAND
-yargs.command({
+command({
     command: 'list',
     describe: 'List the notes',
     handler() {
@@ -48,12 +48,19 @@ yargs.command({
 });
 
 // CREATE READ COMMAND
-yargs.command({
+command({
     command: 'read',
     describe: 'Read a note',
-    handler() {
-        console.log('Reading a note!');
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        readNote(argv.title);
     }
 });
 
-yargs.parse();
+parse();
